@@ -16,13 +16,29 @@ export default {
       list: []
     }
   },
-  async mounted() {
-    let self = this
-    let {status, data: { list }} = await axios.get('/city/list')
+  // async mounted() {    //  浏览器端处理组件的方式
+  //   let self = this
+  //   let {status, data: { list }} = await axios.get('/city/list')
+  //   if (status === 200) {
+  //     this.list = list
+  //   }
+  // },
+  async asyncData() { //  服务器端渲染组件的方式
+    let {status, data: { list }} = await axios.get('http://localhost:3000/city/list')
     if (status === 200) {
-      this.list = list
+      return {
+        list
+      }
     }
   }
+  // async fetch() {    //  用于处理vuex的数据
+  //   let {status, data: { list }} = await axios.get('http://localhost:3000/city/list')
+  //   if (status === 200) {
+  //     return {
+  //       list
+  //     }
+  //   }
+  // }
 }
 </script>
 
